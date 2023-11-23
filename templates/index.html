@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Page 1</title>
+	<link rel=preconnect href=https://fonts.googleapis.com>
+	<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+	<meta charset=utf-8>
+	<link rel="shortcut icon" href=https://274418.selcdn.ru/cv08300-33250f0d-0664-43fc-9dbf-9d89738d114e/images/62828/f44bc6a9bb0214239dba6cb2fa2c4db7.ico type=image/x-icon>
+	<link rel=icon href=https://274418.selcdn.ru/cv08300-33250f0d-0664-43fc-9dbf-9d89738d114e/images/62828/f44bc6a9bb0214239dba6cb2fa2c4db7.ico type=image/x-icon>
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name=generator content="Craftum CMS">
+	<meta name=website_id content=307041>
+	<meta name=page_id content=362543>
+	<link rel="stylesheet" href="{{ url_for('static', path='./style.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', path='./main.css') }}">
+	<script src="{{ url_for('static',path='./main.js') }}"></script>
+	<script>
+	           var speechUtteranceChunker = function (utt, settings, callback) {
+    settings = settings || {};
+    var newUtt;
+    var txt = (settings && settings.offset !== undefined ? utt.text.substring(settings.offset) : utt.text);
+    if (utt.voice && utt.voice.voiceURI === 'native') { // Not part of the spec
+        newUtt = utt;
+        newUtt.text = txt;
+        newUtt.addEventListener('end', function () {
+            if (speechUtteranceChunker.cancel) {
+                speechUtteranceChunker.cancel = false;
+            }
+            if (callback !== undefined) {
+                callback();
+            }
+        });
+    }
+    else {
+        var chunkLength = (settings && settings.chunkLength) || 160;
+        var pattRegex = new RegExp('^[\\s\\S]{' + Math.floor(chunkLength / 2) + ',' + chunkLength + '}[.!?,]{1}|^[\\s\\S]{1,' + chunkLength + '}$|^[\\s\\S]{1,' + chunkLength + '} ');
+        var chunkArr = txt.match(pattRegex);
+
+        if (chunkArr[0] === undefined || chunkArr[0].length <= 2) {
+            //call once all text has been spoken...
+            if (callback !== undefined) {
+                callback();
+            }
+            return;
+        }
+        var chunk = chunkArr[0];
+        newUtt = new SpeechSynthesisUtterance(chunk);
+        var x;
+        for (x in utt) {
+            if (utt.hasOwnProperty(x) && x !== 'text') {
+                newUtt[x] = utt[x];
+            }
+        }
+        newUtt.addEventListener('end', function () {
+            if (speechUtteranceChunker.cancel) {
+                speechUtteranceChunker.cancel = false;
+                return;
+            }
+            settings.offset = settings.offset || 0;
+            settings.offset += chunk.length - 1;
+            speechUtteranceChunker(utt, settings, callback);
+        });
+    }
+
+    if (settings.modifier) {
+        settings.modifier(newUtt);
+    }
+    console.log(newUtt); //IMPORTANT!! Do not remove: Logging the object out fixes some onend firing issues.
+    //placing the speak invocation inside a callback fixes ordering and onend issues.
+    setTimeout(function () {
+        speechSynthesis.speak(newUtt);
+    }, 0);
+};
+                function startSpeechRecognition() {
+    const recognition = new webkitSpeechRecognition();
+    recognition.lang = 'ru-RU';
+    recognition.continuous = true;
+    recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        console.log('Распознанный текст:', transcript);
+        data = {
+            "text": transcript
+        };
+        fetch("/process_text", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        }).then((response) => response.json()).then((data) => {
+            console.log(data);
+            const utterance = new SpeechSynthesisUtterance(data);
+            utterance.lang = 'ru-RU';
+            utterance.rate = 1;
+            utterance.pitch = 1;
+            speechUtteranceChunker(utterance, {
+                                    chunkLength: 250
+                                }, function () {
+                                    //some code to execute when done
+                                    console.log('done');
+                                });
+        });
+    };
+    recognition.start();
+    document.querySelector('#startbutton').disabled = false;
+}
+</script>
+</head>
+
+<body class=th1>
+	<div data-blocks-wrapper>
+		<section id=n-759ae738-55e4-4ef5-9882-c390e03c94e9 class="cli-block cli-cover cli-block--default" data-design-type=block-wrapper data-resize=true>
+			<div id=n-db6a469f-67b7-4848-85ac-a20cb640cab8 class="cli-block__content cli-grid cli-block__content--normal cli-block__content--cover" data-design-type=grid data-block-content=true data-title=Блок data-design-order=1>
+				<div id=n-44beebb1-d514-4051-9cb3-4e833c03ea5a class="cli-col cli-col-start__xl--2 cli-col-end__xl--12 cli-col-start__md--1 cli-col-end__md--7 cli-col-start__sm--1 cli-col-end__sm--5" data-design-type=grid-col>
+					<div id=n-58f3265b-3327-4d09-b98f-f52835c7d69b class="cli-chevron cli-animation-up-down">
+						<a id=n-e588f453-2dba-4fa5-af91-07195d59bec7 class="cli-block-icon cli-block-icon--big" href=# data-draggable=true data-title=Шеврон data-content-order=5 data-design-order=6>
+							<div id=n-f76902b6-46a6-42e9-bb26-3a9017cd03ad class=cli-svg data-design-type=icon-fixed data-title=Иконка data-widget-controls=true data-multitype=true><svg xmlns=http://www.w3.org/2000/svg width=24 height=24 viewbox="0 0 24 24" role=presentation> lang="en"></title><g fill=currentColor><path d="M12 13.8238L6.6325 9.52978C6.43843 9.37452 6.15525 9.40599 5.99999 9.60006C5.84474 9.79412 5.8762 10.0773 6.07027 10.2326L12 14.9763L17.9297 10.2326C18.1238 10.0773 18.1552 9.79412 18 9.60006C17.8447 9.40599 17.5616 9.37452 17.3675 9.52978L12 13.8238Z" fill-rule=evenodd clip-rule=evenodd></path></g></svg></div>
+						</a>
+					</div>
+					<h1 id=n-c2713c9b-64cd-416f-a844-2bec39cebf22 class="cli-block-title cli-block-title--gigantic cli-text-center cli-text-bold" data-design-type=text data-draggable=true data-title=Заголовок data-content-order=1 data-design-order=2 data-seo=true>Удобное онлайн решение для работы с Excel</h1>
+					<p id=n-0c32960e-4686-4989-93d1-d9f90a0dd99c class="cli-block-subtitle cli-block-subtitle--big cli-text-center cli-text-regular" data-design-type=text data-draggable=true data-title=Подзаголовок data-content-order=2 data-design-order=3>VoiceAssistant - ваш помощник в обработке данных.</p>
+					<div id=n-547aca0a-f508-47c5-84e6-f80b50ebeaac class="cli-buttons cli-buttons--column-mobile cli-buttons--center">
+						<form action="/upload" method="post" enctype="multipart/form-data">
+                			<input type="file" name="file" accept=".xlsx, .xls" title="test">
+                			<input type="submit" value="Загрузить">
+            			</form>
+					</div>
+				</div>
+			</div>
+			<div id=n-46afc457-a02c-4b13-a6df-3a353e465851 style="background: url(https://274418.selcdn.ru/cv08300-33250f0d-0664-43fc-9dbf-9d89738d114e/uploads/283306/26305082-bf02-44ff-96f4-1352be187e7d.jpg) no-repeat 50% 50%/cover;" class=cli-background data-design-type=background data-fill=true data-image=true data-video=true>
+				<div id=n-5b7b6475-86c9-492c-810a-30a1298b94f2 class=cli-background__fade data-design-type=bg-fade style="background: rgba(0, 0, 0, 0.4)"></div>
+			</div>
+		</section>
+		<section id=n-22f8e91f-e04d-4f84-a56c-6b17ca92ac77 class="cli-block cli-text cli-block--default" data-design-type=block-wrapper data-resize=true>
+			<div id=n-eb70d47a-ac24-4964-b8ab-a8c96373d723 class="cli-block__content cli-grid cli-block__content--normal" data-design-type=grid data-block-content=true data-title=Блок data-design-order=1>
+				<div id=n-2cf8d5d5-c43b-4dd1-8814-c873b09b8ebb class="cli-col cli-col-start__xl--3 cli-col-end__xl--11 cli-col-start__md--1 cli-col-end__md--7 cli-col-start__sm--1 cli-col-end__sm--5" data-design-type=grid-col>
+					<p id=n-b388bf78-0986-4b9b-8f35-bf041bee69a6 class="cli-block-subtitle cli-block-subtitle--middle cli-text-center cli-text-regular" data-design-type=text data-draggable=true data-title=Подзаголовок data-content-order=2 data-design-order=3>VoiceAssitant – это сайт, который позволяет загружать файлы Excel с компьютера прямо в браузер. Просто нажмите кнопку загрузки, и таблицы откроются непосредственно в браузере. Больше не нужно скачивать файлы и заморачиваться с установкой программ — VoiceAssitant делает все за вас. Теперь вы можете редактировать, просматривать и анализировать данные прямо в окне браузера. Забудьте о неудобстах, связанных с открытием файлов и поиском необходимого контента. Начните использовать VoiceAssitant уже сегодня, чтобы оптимизировать свою работу и сэкономить время.</p>
+				</div>
+			</div>
+			<div id=n-31601bf2-6b27-41c9-8f36-593495c5111c class=cli-background data-design-type=background style="background: #ffffff  no-repeat 50% 50%/cover;" data-fill=true data-image=true data-video=true></div>
+		</section>
+		<section id=n-6ea58d7f-747d-4a27-a16b-458b731783a7 class="cli-block cli-services cli-block--default" data-design-type=block-wrapper data-resize=true>
+			<div id=n-563317a6-7b53-4be2-ae50-3e3806f66886 class="cli-block__content cli-grid cli-block__content--normal" data-design-type=grid data-block-content=true data-title=Блок data-design-order=1>
+				<div id=n-9f4aff56-8e35-4b45-94f5-d12e7be4ef0d class="cli-col cli-col-start__xl--3 cli-col-end__xl--11 cli-col-start__md--1 cli-col-end__md--7 cli-col-start__sm--1 cli-col-end__sm--5" data-design-type=grid-col>
+					<div id=n-cefa22ce-bdca-4105-9e2e-439a3d892d05 class="cli-block-title cli-block-title--large cli-text-center cli-text-bold" data-design-type=text data-draggable=true data-title=Заголовок data-content-order=1 data-design-order=2 data-seo=true>Загрузите исходные данные в Excel. Просто и удобно.</div>
+					<p id=n-fdeef9f8-eae7-47b4-8d0d-b777e23fb76c class="cli-block-subtitle cli-block-subtitle--middle cli-text-center cli-text-regular" data-design-type=text data-draggable=true data-title=Подзаголовок data-content-order=2 data-design-order=3>Раскройте потенциал ваших данных без установки ПО.</p>
+					<ul id=n-c735860d-fa3d-4070-bf4d-1edce0134954 class=cli-service-list data-draggable=true data-design-type=list data-title=Сервисы data-content-order=3 data-design-order=4>
+						<li id=n-022f8d09-8a99-45ca-881f-bed005671fb3 class=cli-service-list__item data-design-type=list-item>
+							<p id=n-5fb03d96-6005-44cf-afbe-fbfb7a5a6086 class="cli-service-list__item-text cli-text-regular" data-design-type=text data-title=Значение>Простая загрузка данных из Excel</p>
+							<p id=n-2a1ac0d7-fe99-43c4-8b03-cb5805c22aab class="cli-service-list__item-price cli-text-bold" data-design-type=text data-title=Цена>490 Р</p>
+							<div id=n-a505c8a8-3293-473a-adee-4f156bb8995d class=cli-service-list__item-separator data-design-type=shape data-title=Разделитель></div>
+						</li>
+						<li id=n-fc087dbc-9fdd-49ab-ae79-be232384bac7 class=cli-service-list__item data-design-type=list-item>
+							<p id=n-cff329cc-85f7-4040-acee-ec67f9a2722c class="cli-service-list__item-text cli-text-regular" data-design-type=text data-title=Значение>Удобный просмотр таблиц в браузере</p>
+							<p id=n-ec405c68-f2ec-470a-8e89-dd66b34ce28a class="cli-service-list__item-price cli-text-bold" data-design-type=text data-title=Цена>690 Р</p>
+							<div id=n-67fedbae-426d-4648-814f-0ee331589c06 class=cli-service-list__item-separator data-design-type=shape data-title=Разделитель></div>
+						</li>
+						<li id=n-1cdd6904-07e3-4742-bb5d-ad3ed030246a class=cli-service-list__item data-design-type=list-item>
+							<p id=n-dc36ff41-f532-4f03-94de-8c12e08c79fb class="cli-service-list__item-text cli-text-regular" data-design-type=text data-title=Значение>Редактирование данных напрямую</p>
+							<p id=n-84a33b26-502a-421c-8242-487dc4260ce9 class="cli-service-list__item-price cli-text-bold" data-design-type=text data-title=Цена>890 Р</p>
+							<div id=n-99675ad8-aa42-4876-b719-ea1a0b08335c class=cli-service-list__item-separator data-design-type=shape data-title=Разделитель></div>
+						</li>
+						<li id=n-f79bd4c4-2b5e-49d4-bd28-b7c308a43753 class=cli-service-list__item data-design-type=list-item>
+							<p id=n-849d7f6a-124e-4476-857b-c76854178a47 class="cli-service-list__item-text cli-text-regular" data-design-type=text data-title=Значение>Фильтрация и сортировка данных</p>
+							<p id=n-4d27981f-16d7-4e01-9671-0831daf0633d class="cli-service-list__item-price cli-text-bold" data-design-type=text data-title=Цена>1190 Р</p>
+							<div id=n-11dcf229-094b-4669-96fc-fa125967f96d class=cli-service-list__item-separator data-design-type=shape data-title=Разделитель></div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div id=n-63237fe7-19a6-4506-85e0-6b9b64dad37c class=cli-background data-design-type=background style="background: #ffffff  no-repeat 50% 50%/cover;" data-fill=true data-image=true data-video=true></div>
+		</section>
+
+		<section id=n-878ff9c4-fa6e-4498-8903-3499657a5449 class="cli-block cli-map cli-block--inverse" data-design-type=block-wrapper>
+			<div id=n-a958cfb0-11b3-412b-af1f-fee3e5a16b7f class="cli-block__content cli-grid cli-block__content--full" data-design-type=grid data-block-content=true data-title=Блок data-design-order=1>
+				<div id=n-e65e7027-5ece-4159-9f78-e8eda9778fba class="cli-col cli-col-start__xl--1 cli-col-end__xl--7 cli-col-start__md--1 cli-col-end__md--7 cli-col-start__sm--1 cli-col-end__sm--5" data-design-type=grid-col>
+					<div id=n-a256da6d-5b91-47d0-bdae-ab48a0a0750a class="cli-map__content cli-map__content--left">
+						<div id=n-e6ed6d9c-0fe9-4ae0-a077-e7fd85d1399b class="cli-block-title cli-map__title cli-text-bold" data-design-type=text data-draggable=true data-title=Заголовок data-content-order=1 data-design-order=2 data-seo=true>Контакты</div><a id=n-c9e23d95-2b5c-46e1-8f3d-f7820d74b768 class=cli-map__text data-design-type=text data-draggable=true data-title=Телефон data-content-order=3 data-design-order=4 href="tel:+7 987 654-32-10">8 (800) 123-45-67</a><a id=n-d718927d-de46-4aef-8727-76fdf5dbbf76 class=cli-map__email data-design-type=text data-draggable=true data-title=Email data-content-order=4 data-design-order=5 href=mailto:info@constructor.ru>info@voiceassistant.com</a>
+						<div id=n-ebf83521-117f-4efa-afd4-5b04d27914f8 class=cli-map__text data-design-type=text data-draggable=true data-title=Адрес data-content-order=2 data-design-order=3>Москва, улица Профсоюзная, 123</div>
+					</div>
+				</div>
+
+			</div>
+			<div id=n-1a5b277f-9fc2-4662-a90f-2806ae58e09f class=cli-background data-design-type=background style="background: #181818  no-repeat 50% 50%/cover;" data-fill=true data-image=true data-video=true></div>
+		</section>
+	</div>
+
+</body>
+
+</html>
