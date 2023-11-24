@@ -28,7 +28,7 @@ def convert_numbers_to_words(sentence):
     converted_sentence = ' '.join(converted_words)  # объединение слов обратно в предложение
     return converted_sentence
 
-df = pd.read_excel('table.xlsx',decimal=',')
+df = pd.read_excel('table.xlsx')
 items=[]
 sootvetstvie={}
 dwords = ['пао','оао','ао','ооо']

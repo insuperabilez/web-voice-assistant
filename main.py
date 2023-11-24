@@ -38,8 +38,6 @@ async def process_text(request: Request):
     data = await request.json()
     print('Дата =', data)
     text = data.get("text")
-    # Здесь вы можете обработать полученный текст по вашим потребностям
-    # Например, вы можете вызвать другую функцию или выполнить какую-то логику с текстом
     processed_text = text.lower()
     com,cmd,company='','',''
     fulltext=[]
@@ -91,8 +89,6 @@ async def process_text(request: Request):
                 fulltext.append(tempstring)
             return ''.join(fulltext)
     return 'не распознано'
-    # Здесь вы можете выполнить код на Python, используя обработанный текст
-    # Например, вы можете вызвать другую функцию или выполнить какую-то логику с текстом на сервере
 
 if __name__ == "__main__":
     import uvicorn
