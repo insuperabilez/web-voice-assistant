@@ -65,17 +65,17 @@ async def process_text(request: Request):
                 arr = [round(x) for x in arr]
                 EI = row['ЕИ']
                 ei = ''
-                match EI:
-                    case 'КГ':
-                        ei = 'кг'
-                    case 'ТН':
-                        ei = 'тээн'
-                    case 'М':
-                        ei = 'эм'
-                    case 'ШТ':
-                        ei = 'штук'
-                    case 'М':
-                        ei = 'метр'
+
+                if EI == 'КГ':
+                    ei = 'кг'
+                if EI == 'ТН':
+                    ei = 'тээн'
+                if EI == 'М':
+                    ei = 'эм'
+                if EI == 'ШТ':
+                    ei = 'штук'
+                if EI == 'М':
+                    ei = 'метр'
                 s1 = f'долг за предыдущий период {str(arr[0])} {ei}'
                 s2 = f'на складе {str(arr[1])} {ei}'
                 s3 = f'отгрузка текущего месяца {str(arr[2])} {ei}'
