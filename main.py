@@ -14,10 +14,6 @@ app.include_router(APIRouter())
 app.mount("/static", StaticFiles(directory='static'), name="static")
 print(os.path.dirname(os.path.abspath(__file__)) + "/static")
 df=''
-@app.get("/test")
-async def index1(request: Request):
-    return templates.TemplateResponse("index1.html",{"request": request})
-
 @app.get("/")
 async def index(request: Request):
     return templates.TemplateResponse("index.html",{"request": request})
@@ -27,7 +23,8 @@ async def upload_file(request:Request, file: UploadFile = File(...)):
     content = await file.read()
     global df
     df = pd.read_excel(content)
-    table=df.to_html(classes='mystyle')
+    #table=df.to_html(classes='mystyle')
+    table = df.to_html(classes='customers')
 
 
     return templates.TemplateResponse("upload.html", {"request": request, "table": table})
