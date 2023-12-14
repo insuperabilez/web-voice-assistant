@@ -23,7 +23,7 @@ async def upload_file(request:Request, file: UploadFile = File(...)):
     content = await file.read()
     global df
     df = pd.read_excel(content)
-    #table=df.to_html(classes='mystyle')
+    
     table = df.to_html(classes='customers')
 
 
