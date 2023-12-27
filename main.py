@@ -33,7 +33,6 @@ async def upload_file(request:Request, file: UploadFile = File(...)):
 @app.post("/process_text")
 async def process_text(request: Request):
     data = await request.json()
-    print('Дата =', data)
     text = data.get("text")
     processed_text = text.lower()
     com,cmd,company='','',''
@@ -45,7 +44,13 @@ async def process_text(request: Request):
         com = cfg.recognize_cmd(' '.join(cmd.split()[0:2]))
         cmd = ' '.join(cmd.split()[2:])
         company = ''
-        if com == 'show1' or com == 'show2':
+        if com=='showrows':
+            numrows = df.shape[0]
+            return f'В таблице {numrows} строк'
+        if com=='showcols':
+            numrows = df.shape[1]
+            return f'В таблице {numrows} столбцов'
+        elif com == 'show1' or com == 'show2':
             company = cfg.recognize_company(cmd)
             companykey = cfg.get_key_by_value(cfg.sootvetstvie, company)
             filtered_df = df[(df['Заказчик'] == companykey) & (df['Недогруз/Перегруз'] < 0)]

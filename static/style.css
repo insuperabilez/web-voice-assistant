@@ -87,7 +87,9 @@ input[type="submit"] {
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 }
-
+input[type="submit"] {
+height:44px;
+}
 input[type="file"]:hover,
 input[type="submit"]:hover {
   background-color: #FFA500;
@@ -103,7 +105,7 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 input[type="file"]::before {
-  content: 'Выберите файл';
+
   display: inline-block;
 
   background-color: #FFD201;
@@ -119,12 +121,10 @@ input[type="file"]:hover::before {
   background-color: #FFA500;
 }
 
-input[type="file"]:focus::before {
-  outline: none;
-  box-shadow: 0 0 5px #FFD201;
-}
+
 input[type='file'] {
-  color: transparent;
+  color: #000;
+
 }
 .mystyle {
     font-size: 11pt;

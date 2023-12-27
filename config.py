@@ -48,6 +48,8 @@ VA_TBR = ('для')
 VA_CMDS = {
     'show1':('выполнение договоров'),
     'show2':('отгрузки товаров'),
+    'showrows':('количество строк'),
+    'showcols':('количество столбцов')
 }
 def recognize_company(cmd: str):
     rc = {'item': '', 'percent': 0}
