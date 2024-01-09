@@ -37,7 +37,7 @@ async def process_text(request: Request):
     processed_text = text.lower()
     com,cmd,company='','',''
     fulltext=[]
-    if processed_text.startswith('алиса'):
+    if processed_text.startswith('ассистент'):
         cmd = processed_text
         for x in cfg.VA_ALIAS:
             cmd = cmd.replace(x, "").strip()

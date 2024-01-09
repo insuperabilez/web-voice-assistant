@@ -43,7 +43,7 @@ for item in pd.array(df['Заказчик']):
     converted=' '.join(words)
     items.append(converted)
     sootvetstvie[item] = converted
-VA_ALIAS = ['алиса','алис']
+VA_ALIAS = ['ассистент','алис']
 VA_TBR = ('для')
 VA_CMDS = {
     'show1':('выполнение договоров'),
